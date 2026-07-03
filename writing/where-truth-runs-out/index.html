@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>🧩 Where Truth Runs Out — y-hat</title>
+<meta name="description" content="An architecture case study: LLM-assisted reconciliation with deterministic correctness.">
+<meta property="og:title" content="Where Truth Runs Out">
+<meta property="og:description" content="An architecture case study: LLM-assisted reconciliation with deterministic correctness.">
+<meta property="og:url" content="https://y-hat.io/writing/where-truth-runs-out/">
+<meta property="og:type" content="article">
+<link rel="preload" href="/assets/fonts/playfair-normal-700-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/playfair-italic-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"Where Truth Runs Out","url":"https://y-hat.io/writing/where-truth-runs-out/","publisher":{"@type":"Organization","name":"y-hat"}}
+</script>
+</head>
+<body>
+<div class="page">
+  <header class="masthead">
+    <a class="mark" href="/" aria-label="y-hat — home">ŷ</a>
+    <nav class="crumbs"><a href="/">home</a></nav>
+  </header>
+
+  <p class="eyebrow">Case study</p>
+  <h1>Where Truth Runs Out</h1>
+  <p class="dek">An architecture case study: LLM-assisted reconciliation with deterministic correctness.</p>
+
+  <h2>The problem</h2>
+  <p>Finance teams reconcile transaction data across systems that were never designed to agree. The work is high-volume, low-tolerance: thousands of rows, where a single silent mismatch can cost hours of downstream investigation or a misstated ledger.</p>
+  <p>The obvious move — hand the rows to an LLM — fails in two predictable ways. Cost scales linearly with volume, and correctness becomes probabilistic exactly where it must be absolute.</p>
+
+  <h2>The architecture</h2>
+  <p>The system I built keeps the LLM off the data path entirely. It works like this:</p>
+  <p><strong>Sample.</strong> From the input files, extract a statistically significant random sample of rows. This sample — not the dataset — is what the model sees.</p>
+  <p><strong>Parse and allocate.</strong> The LLM reads the sample and does one job: it works out the <em>structure</em> of the reconciliation. What the columns mean, how the two sides correspond, and which rules from a small domain-specific language apply — exact match here, amount tolerance there, windowed date logic on this pair. The model's output is not matches. It is a rule allocation.</p>
+  <p><strong>Execute deterministically.</strong> The allocated DSL rules then run across <em>all</em> rows — every one, not the sample — in plain deterministic code. Every match carries full traceability: what matched what, why, and which rule made the decision. When someone asks "why did these two rows pair?", the answer is a named rule, not a probability.</p>
+  <p>The cost consequence falls out immediately: the LLM's work is a function of <em>sample size</em>, which is fixed, not <em>file size</em>, which isn't. A 500-row file and a 500,000-row file cost roughly the same to reconcile. That is the difference between a demo and a business.</p>
+
+  <h2>The finding that mattered most</h2>
+  <p>Here is the part that took building the system to learn.</p>
+  <p>Early on, the goal was 100% match rates. Then it became clear that a system reporting 100% completion, 100% of the time, is almost certainly <em>hiding errors</em> — because in real financial data, genuine ambiguity always exists. A tool that never says "I don't know" hasn't eliminated uncertainty; it has laundered it into false matches, which are the most expensive kind.</p>
+  <p>So the system was redesigned around an explicit confidence boundary. Rules only fire where they are genuinely decisive. Everything below the threshold surfaces as a first-class exception queue — visible, annotated, human-reviewed. The residual isn't a limitation being apologised for. It is the system telling the truth about where truth runs out.</p>
+  <p>This inverts how most AI tools are evaluated. The question isn't "what percentage did it complete?" It's "is the boundary between <em>known</em> and <em>unknown</em> honest, explicit, and in the right place?" A 96% match rate with a trustworthy 4% exception queue is worth more than a 100% rate you can't audit — because the first number describes your data, and the second describes your tool's willingness to guess.</p>
+
+  <h2>The general pattern</h2>
+  <p>This is one instance of a pattern I apply everywhere: <strong>LLMs operate at the fuzzy boundaries; deterministic systems hold correctness.</strong> The model interprets messy structure and proposes rules — the tasks it's genuinely good at. The deterministic layer executes, traces, and decides — the tasks that demand exactness.</p>
+  <p>Most AI tools that demo well and fail in production fail because the model is in the middle, and because they smooth over the confidence boundary instead of exposing it. The fix is rarely a better model. It is a better boundary — and the honesty to show where it sits.</p>
+
+  <hr>
+  <p class="refs">If you're diagnosing an AI tool that isn't delivering, start with two questions: what does the model actually own, and where does the system admit it doesn't know? I write more about this in <a href="/writing/ironies-of-automation-revisited/">Mo' Automation, Mo' Irony</a>.</p>
+
+  <footer>
+    <span>ŷ</span>
+    <a href="/name/">about a name</a>
+    <a href="mailto:james@y-hat.io">james@y-hat.io</a>
+  </footer>
+</div>
+</body>
+</html>

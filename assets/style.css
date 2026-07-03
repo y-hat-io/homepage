@@ -1,0 +1,270 @@
+/* y-hat.io — boutique studio, editorial restyle */
+
+/* ── Self-hosted faces (zero third-party requests at runtime) ── */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal; font-weight: 700; font-display: swap;
+  src: url('fonts/playfair-normal-700-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal; font-weight: 700; font-display: swap;
+  src: url('fonts/playfair-normal-700-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* Playfair italic is one variable woff2 across the weight axis; 400 and 900 share the file. */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: italic; font-weight: 400; font-display: swap;
+  src: url('fonts/playfair-italic-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: italic; font-weight: 400; font-display: swap;
+  src: url('fonts/playfair-italic-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: italic; font-weight: 900; font-display: swap;
+  src: url('fonts/playfair-italic-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: italic; font-weight: 900; font-display: swap;
+  src: url('fonts/playfair-italic-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+:root {
+  --paper:    #fcfcfa;   /* almost-white background */
+  --ink:      #2a2a2a;   /* body text */
+  --strong:   #13280a;   /* near-black with a green cast, for display headings */
+  --grey:     #6e6e6a;
+  --hairline: #e2e2dc;
+  --green:    #61bf1a;   /* frog-green mark & emphasis */
+  --green-deep:#4c9a11;  /* accessible green for small text / links on paper */
+  --orange:   #ff6a1a;   /* CTA / code — counter-colour to the green */
+  --serif:    'Playfair Display', Georgia, 'Iowan Old Style', 'Times New Roman', serif;
+  --body:     Georgia, 'Iowan Old Style', Cambria, 'Times New Roman', serif;
+  --mono:     ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  --measure:  66ch;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper:    #141513;
+    --ink:      #e6e6df;
+    --strong:   #eef3e6;
+    --grey:     #9a9a92;
+    --hairline: #2c2e28;
+    --green:    #78d92e;
+    --green-deep:#8fe046;
+    --orange:   #ff7a34;
+  }
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 1.125rem;
+  line-height: 1.7;
+  padding: 0 1.25rem;
+}
+.page {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 3rem 0 5rem;
+}
+
+/* masthead */
+.masthead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  border-bottom: 1px solid var(--hairline);
+  padding-bottom: 1.25rem;
+  margin-bottom: 3.5rem;
+}
+.mark {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 900;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--green);
+  text-decoration: none;
+  letter-spacing: 0;
+}
+.mark:hover { color: var(--green-deep); }
+nav.crumbs {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: var(--grey);
+}
+nav.crumbs a { color: var(--grey); text-decoration: none; border-bottom: 1px solid var(--hairline); }
+nav.crumbs a:hover { color: var(--green-deep); border-color: var(--green); }
+
+/* hero screenshot */
+.hero-figure { margin: 0 0 2.5rem; }
+.hero-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+  border: 1px solid var(--hairline);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.10), 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+
+/* about portrait */
+.portrait {
+  display: block;
+  width: 240px;
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+  border: 1px solid var(--hairline);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.10), 0 2px 6px rgba(0, 0, 0, 0.06);
+  margin: 0 0 2rem;
+}
+
+/* visually hidden, still read by screen readers */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* type */
+h1 {
+  font-family: var(--serif);
+  font-size: clamp(2.1rem, 6vw, 3.4rem);
+  line-height: 1.08;
+  letter-spacing: -0.015em;
+  font-weight: 700;
+  color: var(--strong);
+  margin: 0 0 1rem;
+}
+h2 {
+  font-family: var(--serif);
+  font-size: clamp(1.35rem, 3vw, 1.7rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--strong);
+  line-height: 1.2;
+  margin: 2.8rem 0 0.7rem;
+}
+p { margin: 0 0 1.25rem; }
+strong { font-weight: 700; color: var(--strong); }
+em { font-style: italic; }
+a { color: inherit; text-decoration-color: var(--green); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+a:hover { text-decoration-color: var(--orange); }
+hr { border: 0; border-top: 1px solid var(--hairline); margin: 3rem 0; }
+
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--green-deep);
+  margin: 0 0 0.75rem;
+}
+.dek {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--grey);
+  font-size: clamp(1.15rem, 2.6vw, 1.5rem);
+  line-height: 1.35;
+  margin-bottom: 2.5rem;
+}
+
+/* highlighter-swipe emphasis (brand green, behind the text) */
+mark {
+  background: linear-gradient(to top, color-mix(in srgb, var(--green) 55%, transparent) 88%, transparent 88%);
+  color: inherit;
+  padding: 0.05em 0.12em;
+  margin: 0 -0.05em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+/* code / CTA pills */
+code {
+  font-family: var(--mono);
+  font-size: 0.85em;
+  background: var(--orange);
+  color: #2a2a2a;
+  padding: 0.12em 0.4em;
+  border-radius: 5px;
+}
+
+/* index: writing list */
+.writing { list-style: none; padding: 0; margin: 0; }
+.writing li { border-top: 1px solid var(--hairline); padding: 1.2rem 0; }
+.writing li:last-child { border-bottom: 1px solid var(--hairline); }
+.writing a {
+  font-family: var(--mono);
+  font-weight: 600;
+  font-size: 1.05rem;
+  letter-spacing: -0.01em;
+  color: var(--strong);
+  text-decoration: none;
+}
+.writing a:hover { color: var(--green-deep); }
+.writing .sub { color: var(--grey); font-size: 1rem; margin-top: 0.25rem; }
+
+/* statement */
+.statement {
+  font-family: var(--serif);
+  font-size: clamp(1.6rem, 4.5vw, 2.6rem);
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--strong);
+  margin: 0 0 0.9rem;
+}
+.statement .q {
+  background: linear-gradient(to top, color-mix(in srgb, var(--green) 55%, transparent) 90%, transparent 90%);
+  padding: 0.02em 0.1em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+footer {
+  margin-top: 4rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--hairline);
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: var(--grey);
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+footer a { color: var(--grey); }
+footer a:hover { color: var(--green-deep); }
+
+blockquote {
+  margin: 1.5rem 0;
+  padding-left: 1rem;
+  border-left: 3px solid var(--green);
+  color: var(--grey);
+  font-style: italic;
+}
+.refs { font-size: 1rem; color: var(--grey); }
+
+:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }

@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>🧩 Mo' Automation, Mo' Irony — y-hat</title>
+<meta name="description" content="Why Bainbridge's 1983 paper is the sharpest lens on AI deployment in 2026.">
+<meta property="og:title" content="Mo' Automation, Mo' Irony">
+<meta property="og:description" content="Why Bainbridge's 1983 paper is the sharpest lens on AI deployment in 2026.">
+<meta property="og:url" content="https://y-hat.io/writing/ironies-of-automation-revisited/">
+<meta property="og:type" content="article">
+<link rel="preload" href="/assets/fonts/playfair-normal-700-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/playfair-italic-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"Mo' Automation, Mo' Irony","url":"https://y-hat.io/writing/ironies-of-automation-revisited/","publisher":{"@type":"Organization","name":"y-hat"}}
+</script>
+</head>
+<body>
+<div class="page">
+  <header class="masthead">
+    <a class="mark" href="/" aria-label="y-hat — home">ŷ</a>
+    <nav class="crumbs"><a href="/">home</a></nav>
+  </header>
+
+  <p class="eyebrow">Essay</p>
+  <h1>Mo' Automation, Mo' Irony</h1>
+  <p class="dek">Why Bainbridge's 1983 paper is the sharpest lens on AI deployment in 2026.</p>
+
+  <p>In 1983, Lisanne Bainbridge published a four-page paper called <em>Ironies of Automation</em>. It was written about industrial control rooms — operators supervising chemical plants and power stations. It is the most useful document I know for understanding why AI tools fail inside organisations today.</p>
+  <p>Her central irony: <strong>the more you automate a task, the less capable humans become at supervising the automation.</strong> The system handles the routine cases, so operators lose the practice that built their judgment. Then the automation hits an edge case — precisely the situation it wasn't designed for — and hands control back to a human whose skills have quietly atrophied. Automation doesn't remove the human from the loop. It removes the human's <em>readiness</em> and leaves them in the loop anyway, at the worst possible moment.</p>
+  <p>Every clause maps directly onto LLM deployment.</p>
+
+  <h2>The ironies, translated</h2>
+  <p><strong>Irony 1: The designer's errors become the system's errors.</strong> Bainbridge noted that automation is designed by people who assume the human is unreliable — yet the designer is also human, and their assumptions get baked in permanently. In AI terms: a prompt, a fine-tune, a workflow encodes its author's model of the task. The model then applies that assumption to every case, including the ones the author never imagined. Confidently.</p>
+  <p><strong>Irony 2: The human keeps the tasks the designer couldn't automate — which are the hardest ones.</strong> The LLM drafts the routine proposal; the human handles the weird client, the ambiguous contract, the case that doesn't fit the template. We've automated the practice reps and kept the finals.</p>
+  <p><strong>Irony 3: Monitoring is a terrible job for humans.</strong> People cannot sustain vigilance over a system that is right 95% of the time. They stop checking. This is the operational reality behind every "human in the loop" checkbox: the loop exists on the org chart and nowhere else. An LLM output that is <em>usually</em> right trains its reviewer to approve without reading — which is exactly when the 5% ships.</p>
+  <p><strong>Irony 4: Skill decays without use.</strong> The junior analyst who never writes the first draft never develops the judgment to evaluate one. In two years the organisation has no one who can tell a good output from a plausible one. The automation has consumed its own supervision.</p>
+
+  <h2>What this means for building</h2>
+  <p>Bainbridge's ironies aren't an argument against automation. They're a design specification. Systems that survive them share properties:</p>
+  <p><strong>Make failures loud, not smooth.</strong> A system that guesses gracefully at edge cases is optimised to hide exactly what humans need to see. Explicit exception queues beat plausible interpolation. The most dangerous output an AI system can produce is a wrong answer formatted like a right one.</p>
+  <p><strong>Give the model proposal rights, not commit rights.</strong> If a deterministic layer checks every model output before it takes effect, the vigilance problem shrinks from "check everything" to "review the exceptions." Machines are good at tireless checking; humans are good at judgment on a bounded set. Assign accordingly.</p>
+  <p><strong>Preserve the practice that builds supervisors.</strong> If a workflow matters, someone must retain the ability to do it unassisted. This is a staffing and process decision, not a tooling one — and it's the one organisations skip first.</p>
+  <p><strong>Instrument everything.</strong> Bainbridge's operators couldn't see inside the automation. Yours shouldn't have that excuse. If leadership can't see exactly what the system decided and why, they will discover its failure mode from a customer.</p>
+
+  <h2>The 2026 irony</h2>
+  <p>The final irony is ours: forty-three years of warning, freely available, four pages long — and the current wave of AI deployment is recapitulating every failure mode on schedule. Tools that demo brilliantly, degrade silently, and leave behind teams less capable of catching the degradation than before the tool arrived.</p>
+  <p>The pattern is fixable. But the fix is architectural, not promptual. You don't solve Bainbridge with a better model. You solve it by deciding, precisely, what the model is allowed to own — and building the substrate that owns everything else.</p>
+
+  <hr>
+  <p class="refs">Bainbridge, L. (1983). Ironies of Automation. <em>Automatica</em>, 19(6), 775–779. For the pattern in practice, see <a href="/writing/where-truth-runs-out/">Where Truth Runs Out</a>.</p>
+
+  <footer>
+    <span>ŷ</span>
+    <a href="/name/">about a name</a>
+    <a href="mailto:james@y-hat.io">james@y-hat.io</a>
+  </footer>
+</div>
+</body>
+</html>
