@@ -1,0 +1,175 @@
+/* y-hat — the board. functional first; fix what annoys. */
+
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: italic; font-weight: 900; font-display: swap;
+  src: url('fonts/playfair-italic-latin.woff2') format('woff2');
+}
+
+:root {
+  --paper:  #fbfbf8;
+  --ink:    #24241f;
+  --faint:  #75756d;
+  --line:   #d8d8ce;
+  --accent: #4c9a11;
+  --mono:   ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  --sans:   -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper:  #151614;
+    --ink:    #dcdcd4;
+    --faint:  #8f8f86;
+    --line:   #34362e;
+    --accent: #8fe046;
+  }
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 0.9375rem/1.55 var(--sans);
+}
+a { color: inherit; text-decoration-color: var(--accent); text-underline-offset: 3px; }
+a:hover { color: var(--accent); }
+
+/* masthead */
+.masthead {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.4rem 1rem;
+  padding: 1rem 1.25rem 0.9rem;
+  border-bottom: 1px solid var(--line);
+}
+.mark {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-style: italic;
+  font-weight: 900;
+  font-size: 1.4rem;
+  line-height: 1;
+  color: var(--accent);
+  text-decoration: none;
+}
+.masthead h1 {
+  font-family: var(--mono);
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin: 0;
+}
+.tag { margin: 0; color: var(--faint); font-size: 0.85rem; }
+.masthead nav {
+  margin-left: auto;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--faint);
+}
+.masthead nav a { color: var(--faint); }
+.masthead nav a:hover { color: var(--accent); }
+
+/* the board */
+.board {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 1rem;
+  align-items: start;
+  padding: 1rem 1.25rem;
+}
+.panel {
+  border: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  max-height: 78vh;
+  background: var(--paper);
+}
+.panel-head {
+  padding: 0.6rem 0.85rem;
+  border-bottom: 1px solid var(--line);
+}
+.panel-head h2 {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+.status {
+  font-weight: 400;
+  font-size: 0.72rem;
+  color: var(--accent);
+  margin-left: 0.4rem;
+}
+.statement {
+  margin: 0.25rem 0 0;
+  color: var(--faint);
+  font-size: 0.82rem;
+}
+
+/* notes: rendered markdown, "## YYYY-MM-DD" per entry */
+.notes {
+  overflow-y: auto;
+  min-height: 0;
+  padding: 0 0.85rem 0.9rem;
+}
+.notes h2 {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 400;
+  color: var(--faint);
+  border-top: 1px dashed var(--line);
+  margin: 1.1rem 0 0.5rem;
+  padding-top: 0.9rem;
+}
+.notes h2:first-child { border-top: 0; padding-top: 0.9rem; }
+.notes p { margin: 0 0 0.7rem; }
+.notes ul, .notes ol { margin: 0 0 0.7rem; padding-left: 1.3rem; }
+.notes img {
+  max-width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+  display: block;
+  margin: 0.5rem 0 0.8rem;
+}
+.notes pre {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  line-height: 1.45;
+  border: 1px solid var(--line);
+  padding: 0.6rem 0.7rem;
+  overflow-x: auto;
+  margin: 0.5rem 0 0.8rem;
+}
+.notes code { font-family: var(--mono); font-size: 0.85em; }
+.notes blockquote {
+  margin: 0.5rem 0 0.8rem;
+  padding-left: 0.8rem;
+  border-left: 2px solid var(--accent);
+  color: var(--faint);
+}
+
+/* narrow screens: swipe between panels */
+@media (max-width: 700px) {
+  .board {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 0.75rem;
+    padding: 0.9rem;
+  }
+  .panel {
+    flex: 0 0 92%;
+    scroll-snap-align: center;
+    max-height: 80vh;
+  }
+}
+
+footer {
+  padding: 1rem 1.25rem 2rem;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--faint);
+}
+
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }

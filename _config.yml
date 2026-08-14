@@ -1,0 +1,13 @@
+title: y-hat
+url: https://y-hat.io
+
+# Each file in _projects/ is one project panel on the board.
+# Frontmatter: title, statement (one line), status (hacking/parked/done/...), order (board position).
+# Body: notes only, newest at top, each under a "## YYYY-MM-DD" heading.
+collections:
+  projects:
+    output: false
+
+markdown: kramdown
+exclude:
+  - README.md
