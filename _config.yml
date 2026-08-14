@@ -11,3 +11,4 @@ collections:
 markdown: kramdown
 exclude:
   - README.md
+  - push.sh
