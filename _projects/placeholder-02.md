@@ -1,12 +1,10 @@
 ---
-title: placeholder-02
-statement: What a just-started project looks like — one note, mostly intent.
+title: lab-OS
+statement: studio/lab operating system.
 status: starting
 order: 2
 ---
 
-## 2026-08-14
+## 2026-08-17
 
-New project = new file in `_projects/`. A panel appears on the next push.
-This one has a single note, which is how most projects should start:
-a dated sentence about what's being attempted, before any of it works.
+Not bolted on. Is it possible to set it as a foundation?
